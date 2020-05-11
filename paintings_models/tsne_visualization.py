@@ -21,8 +21,8 @@ def tsne_map(tsne_features):
 
     full_image = Image.new('RGBA', (width, height))
     iter = 0
-    for x, y in tqdm(zip(tx, ty)):
-        tile = Image.open(get_image_path_by_label(labels[iter]))
+    for x, y in zip(tx, ty):
+        tile = Image.open(get_image_path_by_label(labels[iter].replace("\\", "/")))
         rs = max(1, tile.width/max_dim, tile.height/max_dim)
         tile = tile.resize((int(tile.width/rs), int(tile.height/rs)), Image.ANTIALIAS)
         full_image.paste(tile, (int((width-max_dim)*x), int((height-max_dim)*y)), mask=tile.convert('RGBA'))
